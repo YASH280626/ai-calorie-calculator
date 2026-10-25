@@ -26,4 +26,16 @@ def get_food_nutrition(dish_name):
     finally:
         conn.close()
 
-        
+def calculate_nutrition(food, quantity_g):
+    if food is None or quantity_g <= 0:
+        return None
+    
+    scaled = {}
+
+    for key, value in food.items():
+        if isinstance(value, (int, float)) and not isinstance(value, bool):
+            scaled[key] = round(value * quantity_g / 100, 2)
+        else:
+            scaled[key] = value
+
+    return scaled
