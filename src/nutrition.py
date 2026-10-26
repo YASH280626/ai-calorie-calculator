@@ -39,3 +39,14 @@ def calculate_nutrition(food, quantity_g):
             scaled[key] = value
 
     return scaled
+
+def get_food_names():
+    conn = sqlite3.connect(DB_Path)
+
+    try:
+        cursor = conn.cursor()
+
+        cursor.execute('SELECT "Dish Name" FROM food_nutrition')
+        return [row[0] for row in cursor.fetchall()]
+    finally:
+        conn.close()
